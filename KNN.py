@@ -9,7 +9,7 @@ import numpy as np
 
 def KNN(unknown_point: list, data_set: np.ndarray, labels: list, k: int) -> str:
     """
-        将点unknown_point使用KNN(K-最近邻)算法,根据data_set数据进行分类,以最近的k个点为准
+        将点unknown_point使用KNN(K-近邻算法),根据data_set数据进行分类,以最近的k个点为准
     """
     # 获取已知分类结果的点的数量
     data_set_size = len(data_set)
