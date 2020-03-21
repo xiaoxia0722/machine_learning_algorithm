@@ -22,7 +22,7 @@ def get_entropy(data_set: list) -> int:
         results[result] = results.get(result, 0) + 1
     entropy = 0.0
     for key in results.keys():
-        e = float(results[key])/data_set_len
+        e = float(results[key]) / data_set_len
         entropy -= e * log(e, 2)
     return entropy
 
@@ -37,7 +37,7 @@ def divide_data_set(data_set: list, axis: int, value: str) -> list:
         if data[axis] == value:
             # 将去除指定特征后的样例数据添加到返回列表中
             new_data = data[:axis]
-            new_data.extend(data[axis+1:])
+            new_data.extend(data[axis + 1:])
             return_data.append(new_data)
     return return_data
 
@@ -47,7 +47,7 @@ def select_best_axis(data_set: list) -> int:
         选择数据集data_set中信息增益最大的特征值划分
     """
     # 获取特征数
-    axis_len = len(data_set[0])-1
+    axis_len = len(data_set[0]) - 1
     # 获取数据集data_set的熵
     data_set_entropy = get_entropy(data_set)
     best_axis, max_entropy = -1, 0.0
@@ -61,9 +61,9 @@ def select_best_axis(data_set: list) -> int:
         for axis in axis_set:
             new_data_set = divide_data_set(data_set, i, axis)
             entropy = get_entropy(new_data_set)
-            e = float(len(new_data_set))/len(data_set)
+            e = float(len(new_data_set)) / len(data_set)
             axis_entropy += e * entropy
-        axis_entropy = data_set_entropy-axis_entropy
+        axis_entropy = data_set_entropy - axis_entropy
         if axis_entropy > max_entropy:
             max_entropy = axis_entropy
             best_axis = i
@@ -81,7 +81,7 @@ def get_result(result_list: list):
     return result_sort[0][0]
 
 
-def create_tree(data_set: list, labels: list) -> dict:
+def create_tree(data_set: list, labels: list, value: float = 0.2) -> dict:
     """
     以字典形式创建决策树
     """
@@ -91,7 +91,7 @@ def create_tree(data_set: list, labels: list) -> dict:
     if len(set(result_list)) == 1:
         return result_list[0]
     # 如果没有特征则返回最多的结果
-    if len(data_set[0]) == 1:
+    if len(data_set[0]) == 1 or get_entropy(data_set) < value:
         return get_result(result_list)
     # 获取最佳的特征
     best_axis = select_best_axis(data_set)
@@ -106,4 +106,3 @@ def create_tree(data_set: list, labels: list) -> dict:
         # 将当前节点的子树进行存储
         tree[best_axis_label][result] = create_tree(divide_data_set(data_set, best_axis, result), labels.copy())
     return tree
-
