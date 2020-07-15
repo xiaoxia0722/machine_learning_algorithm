@@ -14,7 +14,7 @@ import numpy as np
 
 class SimpleLinearRegression:
     """
-    使用最小二乘法求解
+    使用最小二乘法实现简单线性回归
     """
     def __init__(self):
         self.a_ = None

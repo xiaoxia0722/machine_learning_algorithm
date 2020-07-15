@@ -44,3 +44,13 @@ def mean_absolute_error(y, y_predict):
     """
     assert y.shape[0] == y_predict.shape[0], "y和y_predict的大小必须相同"
     return np.sum(np.absolute(y-y_predict))/len(y)
+
+
+def r2_score(y, y_predict):
+    """
+    计算R方值
+    """
+    assert y.shape[0] == y_predict.shape[0], "y和y_predict的大小必须相同"
+
+    mse = mean_square_error(y, y_predict)
+    return 1 - mse/np.var(y)
