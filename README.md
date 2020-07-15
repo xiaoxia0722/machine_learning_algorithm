@@ -67,9 +67,16 @@
     - predict: 对数据进行预测
         - X_predict: 需要进行预测的数据集(1维)
 - LinearRegression.py: 多元线性回归
-    - fit_normal: 训练模型
+    - fit_normal: 使用最小二乘法训练模型
         - X_train: 训练数据集
         - y_train: 训练数据集对应的标签
+        - return: self
+    - fit_gd: 使用梯度下降法训练模型
+        - X_train: 训练数据集
+        - y_train: 训练数据集对应的标签
+        - eta: 学习率
+        - n_iters: 梯度下降的最大循环次数
+        - n: 随机生成梯度下降初始值点的次数
         - return: self
     - predict: 对数据进行预测
         - X_predict: 需要进行预测的数据集
