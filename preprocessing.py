@@ -14,7 +14,7 @@ import numpy as np
 
 class StandardScaler:
     """
-    用于数据归一化处理
+    用于数据归一化处理(均值方差归一化)
     """
     def __init__(self):
         self.mean_ = None

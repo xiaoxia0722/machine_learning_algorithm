@@ -20,32 +20,32 @@ class SimpleLinearRegression:
         self.a_ = None
         self.b_ = None
 
-    def fit(self, x_train: np.ndarray, y_train: np.ndarray):
+    def fit(self, X_train: np.ndarray, y_train: np.ndarray):
         """
-        根据x_train和y_train训练模型
+        根据X_train和y_train训练模型
         """
-        assert x_train.ndim == 1, "x_train必须是1维的"
-        assert len(x_train) == len(y_train), "x_train和y_train的大小相同"
+        assert X_train.ndim == 1, "X_train必须是1维的"
+        assert len(X_train) == len(y_train), "X_train和y_train的大小相同"
 
-        x_mean = np.mean(x_train, axis=0)
+        X_mean = np.mean(X_train, axis=0)
         y_mean = np.mean(y_train, axis=0)
 
-        num = (x_train - x_mean).dot(y_train - y_mean)
-        d = (x_train-x_mean).dot(x_train-x_mean)
+        num = (X_train - X_mean).dot(y_train - y_mean)
+        d = (X_train-X_mean).dot(X_train-X_mean)
 
         self.a_ = num/d
-        self.b_ = y_mean - self.a_*x_mean
+        self.b_ = y_mean - self.a_*X_mean
 
         return self
 
-    def predict(self, x_predict: np.ndarray):
+    def predict(self, X_predict: np.ndarray):
         """
-        对x_predict进行预测
+        对X_predict进行预测
         """
-        assert x_predict.ndim == 1, "x_train必须是1维"
+        assert X_predict.ndim == 1, "X_train必须是1维"
         assert self.a_ is not None and self.b_ is not None, 'predict前需要先进行fit'
 
-        y_predict = x_predict * self.a_ + self.b_
+        y_predict = X_predict * self.a_ + self.b_
         return y_predict
 
     def __repr__(self):
